@@ -1,3 +1,4 @@
+## This fork enables non uvc devices
 # Pupil
 Open source eye tracking software platform that started as a thesis project at MIT. Pupil is a project in active, community driven development. Pupil mobile eye tracking hardware is accessible, hackable, and affordable. The software is open source and written in `Python` and `C++` when speed is an issue.
 
