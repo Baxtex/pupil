@@ -20,6 +20,8 @@ These backends are available:
 - NDSI: Remote Pupil Mobile sources
 - Fake: Fallback, static grid image
 - File: Loads video from file
+Modded;
+- Non UVC: Using non UVC cameras such as webcams.
 '''
 
 import os
@@ -33,12 +35,13 @@ logger = logging.getLogger(__name__)
 from .base_backend import InitialisationError, StreamError, EndofVideoError
 from .base_backend import Base_Source, Base_Manager
 from .fake_backend import Fake_Source, Fake_Manager
-from .file_backend import FileSeekError
+from .file_backend import FileCaptureError, FileSeekError
 from .file_backend import File_Source, File_Manager
 from .uvc_backend import UVC_Source,  UVC_Manager
+from .none_uvc_backend  import None_UVC_Source,  None_UVC_Manager
 
-source_classes = [File_Source,  UVC_Source, Fake_Source]
-manager_classes = [File_Manager, UVC_Manager, Fake_Manager]
+source_classes = [File_Source,  UVC_Source, None_UVC_Source, Fake_Source]
+manager_classes = [File_Manager, UVC_Manager, None_UVC_Manager, Fake_Manager]
 
 try:
     from .ndsi_backend import NDSI_Source, NDSI_Manager
@@ -58,7 +61,10 @@ else:
 
 
 def init_playback_source(g_pool, source_path=None, *args, **kwargs):
-    if source_path is None or os.path.splitext(source_path)[1] == '.fake':
-        return Fake_Source(g_pool, source_path=source_path, *args, **kwargs)
-    else:
-        return File_Source(g_pool, source_path=source_path, *args, **kwargs)
+
+        #return File_Source(g_pool, source_path=source_path, *args, **kwargs)
+
+        if source_path is None or os.path.splitext(source_path)[1] == '.fake':
+            return Fake_Source(g_pool, source_path=source_path, *args, **kwargs)
+        else:
+            return File_Source(g_pool, source_path=source_path, *args, **kwargs)
