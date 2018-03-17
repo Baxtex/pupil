@@ -214,7 +214,7 @@ class None_UVC_Manager(Base_Manager):
         while ret:
             ret, image = capture.read()
             self.g_pool.capture._img = cv2.resize(image,(640,480),interpolation=cv2.INTER_LANCZOS4)
-            print ('Running...')
+            
 
     def deinit_ui(self):
         self.remove_menu()
